@@ -12,9 +12,9 @@ def_port = available_ports[0]
 
 def print_help():
     print("Dobot CLI Controller")
-    print("Enter m <x> <y> <z> <r> to move to position x,y,z with rotation r")
+    print("Enter m <x> <y> <z>  to move to position x,y,z with rotation r(add later) ")
     print("Enter g <e> <t> to set gripper to position e(0/1) and enable control for t seconds")
-    print("Enter j <cmd> <isqueued> <frame>")
+    print("Enter j <cmd> <isJoint> <isqueued>")
     print("Enter q to exit")
     print("Enter h to print this msg")
 
@@ -40,13 +40,16 @@ def main(port):
                 t = float(inp[2])
                 dobot.grip(e, t)
 
-            elif cmd == 'm':
-                x, y, z, r = [int(x) for x in inp[1:]]
-                dobot.movexyz(x, y, z, r)
+            elif cmd == 'm': ## add r later
+                x, y, z= [int(x) for x in inp[1:]]
+                dobot.movexyz(x, y, z)
             elif cmd == 'j':
                 com, isJoint, q = [int(x) for x in inp[1:]]
                 print("com received")
                 dobot.jog(cmd=com, isJoint=isJoint, q=q)
+            else:
+                dobot.disconnect()
+                exit()
         except Exception as e :
             print("Invalid Command or Value. Exiting.")
             print(e)

@@ -1,6 +1,6 @@
 import dobot_gym.utils.DobotDllType as dType
 import time
-
+from sys import exit
 
 class DobotController():
 
@@ -30,12 +30,17 @@ class DobotController():
             dType.SetQueuedCmdClear(self.api)
 
             # Async Motion Params Setting
-            dType.SetHOMEParams(self.api, 206.6887, 0, 135.0133, 0, isQueued=1)  # set home co-ordinates  [x,y,z,r]
+            dType.SetHOMEParams(self.api, 206, 0, 135, 0, isQueued=1)  # set home co-ordinates  [x,y,z,r]
             # dType.SetPTPJointParams(self.api, 100, 100, 100, 100, 100, 100, 100, 100,
             #                         isQueued=1)  # joint velocities(4) and joint acceleration(4)
+            print(1)
             dType.SetPTPCommonParams(self.api, 90, 90, isQueued=1)  # velocity ratio, acceleration ratio
+            print(2)
             dType.SetPTPJumpParams(self.api, 30, 135, isQueued=1)  # jump height , zLimit
-            dType.SetJOGJointParams(self.api, 10, 10, 10, 10, 10, 10, 10, 10, isQueued=1)
+            print(3)
+            dType.SetPTPJointParams(self.api,50,50,50,50,50,50,50,50,isQueued=1)
+            print(4)
+            # dType.SetJOGJointParams(self.api, 10, 10, 10, 10, 10, 10, 10, 10, isQueued=1)
             # dType.SetJOGCoordinateParams(self.api, 100, 100, 100, 100, 100, 100, 100,100, isQueued=1)
 
             # lastIndex = dType.SetPTPCmd(self.api, dType.PTPMode.PTPMOVJXYZMode, 212, -83, 20, 100, isQueued=1)[0]
@@ -46,6 +51,7 @@ class DobotController():
 
             while lastIndex > dType.GetQueuedCmdCurrentIndex(self.api)[0]:
                 dType.dSleep(500)
+                # print(dType.GetQueuedCmdCurrentIndex(self.api))
             # print(lastIndex)
             # print(lastIndex)
             dType.SetQueuedCmdStopExec(self.api)
@@ -60,9 +66,9 @@ class DobotController():
         print("Disconnected")
 
 
-    def movexyz(self, x, y, z, r, q=1):
+    def movexyz(self, x, y, z, r=0, q=1):
         if q == 1:
-            lastIndex = dType.SetPTPCmd(self.api, dType.PTPMode.PTPMOVLXYZMode, x, y, z, r, isQueued=1)[0]
+            lastIndex = dType.SetPTPCmd(self.api, dType.PTPMode.PTPMOVJANGLEINCMode, x, y, z, r, isQueued=1)[0]
             dType.SetQueuedCmdStartExec(self.api)
 
             while lastIndex > dType.GetQueuedCmdCurrentIndex(self.api)[0]:
@@ -73,7 +79,7 @@ class DobotController():
             dType.SetQueuedCmdStopExec(self.api)
             dType.SetQueuedCmdClear(self.api)
         else:
-            dType.SetPTPCmd(self.api, dType.PTPMode.PTPMOVLXYZMode, x, y, z, r, isQueued=0)
+            dType.SetPTPCmd(self.api, dType.PTPMode.PTPMOVJANGLEINCMode, x, y, z, r, isQueued=0)
 
 
     def jog(self, cmd, isJoint=1, q=1):
