@@ -6,14 +6,14 @@ import copy
 ##low :[  0 208  61], high:[ 74 255 153]
 ##low :[  0 187  71], high:[ 80 245 255]
 class Vision():
-    def __init__(self,camera_port=1):
-        self.camera_port = camera_port
-        # cap1 = cv2.VideoCapture(1)
-        self.cap2 = cv2.VideoCapture(camera_port)
+    def __init__(self, camera_port_left=1):
+        self.camera_port = camera_port_left
+        # self.cap1 = cv2.VideoCapture(2)
+        self.cap2 = cv2.VideoCapture(camera_port_left)
 
     def get_obs_cam(self, centroid=True):
         # Capture frame-by-frame
-        # ret1, right = cap1.read()
+        # ret1, right = self.cap1.read()
         ret2, left = self.cap2.read()
 
         #  operations on the frame come here
@@ -46,8 +46,10 @@ class Vision():
             left,arr=self.get_obs_cam(centroid=True)
             cv2.circle(left, (arr[0],arr[1]), 5, (255, 255, 255), -1)
             # Display the resulting frame
+            print (arr)
             # cv2.imshow('right', right)
             cv2.imshow('left', left)
+
 
             if cv2.waitKey(1) & 0xFF == ord('q'):
                 break
@@ -56,3 +58,12 @@ class Vision():
         # cap1.release()
         #         cap2.release()
         cv2.destroyAllWindows()
+
+if __name__=='__main__':
+
+    a= Vision()
+    a.show_image(render_time=50000)
+
+
+## Y axis of the frame :Top to bottom increasing
+## X axis of the frame: left to right increasing

@@ -5,11 +5,11 @@ import dobot_gym.utils.DobotDllType as dType
 from dobot_gym.utils.dobot_controller import DobotController
 from dobot_gym.utils.vision import Vision  ## gives centroid and rgb image and grey image
 from gym.spaces import MultiDiscrete, Discrete
-
+import cv2
 
 class DobotRealEnv(gym.Env, utils.EzPickle):
-    def __init__(self,camera_port=1):
-        self.camera_obj = Vision(camera_port)  ## initialize camera
+    def __init__(self, camera_port_left=1):
+        self.camera_obj = Vision(camera_port_left=camera_port_left)  ## initialize camera
         available_ports = glob('/dev/tty*USB*')
         if len(available_ports) == 0:
             print('no port found for Dobot Magician')
@@ -29,7 +29,7 @@ class DobotRealEnv(gym.Env, utils.EzPickle):
         real_action = action - 1
         self.dobot.movexyz(*real_action, r=0, q=1)
         image, centroid, poses = self.get_observation()
-
+        self.image=image
         reward = self.compute_reward(image, centroid)
         done = False
         if not centroid:
@@ -67,8 +67,8 @@ class DobotRealEnv(gym.Env, utils.EzPickle):
         return poses
 
     def render(self):
-        self.camera_obj.show_image(render_time=10)
-
+        # self.camera_obj.show_image(render_time=10)
+        cv2.imshow('leftcam',self.image)
     def close():
         self.dobot.disconnect()
         self.ob.cap2.release()
