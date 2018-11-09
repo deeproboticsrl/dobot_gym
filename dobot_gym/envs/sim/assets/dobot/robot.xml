@@ -1,0 +1,50 @@
+<mujoco>
+	<body mocap="true" name="robot0:mocap" pos="1 1 1">
+		<geom conaffinity="0" contype="0" pos="0 0 0" rgba="0 0.5 0 0" size="0.005 0.005 0.005" type="box"></geom>
+		<geom conaffinity="0" contype="0" pos="0 0 0" rgba="0 0.5 0 0" size="1 0.005 0.005" type="box"></geom>
+		<geom conaffinity="0" contype="0" pos="0 0 0" rgba="0 0.5 0 0" size="0.005 1 0.001" type="box"></geom>
+		<geom conaffinity="0" contype="0" pos="0 0 0" rgba="0 0.5 0 0" size="0.005 0.005 1" type="box"></geom>
+	</body>
+	<body childclass="robot0:dobot" name="robot0:base_link" pos="0 0 0.1" euler="0 0 0">
+		<joint armature="0.0001" axis="1 0 0" damping="1e+11" name="robot0:slide0" pos="0 0 0" type="slide"></joint>
+		<joint armature="0.0001" axis="0 1 0" damping="1e+11" name="robot0:slide1" pos="0 0 0" type="slide"></joint>
+		<joint armature="0.0001" axis="0 0 1" damping="1e+11" name="robot0:slide2" pos="0 0 0" type="slide"></joint>
+			<inertial diaginertia="1.2869 1.2236 0.9868" mass="1.5" pos="0 0 0"></inertial>
+			<geom mesh="robot0:base_link" name="robot0:base_link" material="arm_mat" class="robot0:white"></geom>
+			<body name="robot0:lift_link" pos="0 0 0.066" euler="0 0 0">
+				<inertial diaginertia="1.2869 1.2236 0.9868" mass="0.5" pos="0 0 0"></inertial>
+				<geom mesh="robot0:lift_link" name="robot0:lift_link" material="arm_mat" class="robot0:white"></geom>
+				<joint name="robot0:base_pan" pos="0 0 0" axis="0 0 1" range="-1.57 1.57" limited="true"/>
+				<body name="robot0:rear_arm_link" pos="0 0 0.16" euler="0 0 0">
+					<inertial diaginertia="1.2869 1.2236 0.9868" mass="0.85" pos="0 0 0" ></inertial>
+					<geom mesh="robot0:rear_arm_link" name="robot0:rear_arm_link" pos = "0 0 0" material="arm_mat" class="robot0:white"></geom>
+					<joint name="robot0:base_tilt" pos="0 0 0" axis="1 0 0" range="0 1.4835" limited="true"/>
+					<body name="robot0:front_arm_link" pos="0 -0.098 0.246" euler="0 0 0">
+						<inertial diaginertia="1.2869 1.2236 0.9868" mass="0.85" pos="0 0 0"></inertial>
+						<geom mesh="robot0:front_arm_link" name="robot0:front_arm_link" pos = "0 0 0" material="arm_mat" class="robot0:white"></geom>
+						<joint name="robot0:elbow_flex" pos="0 0 0" axis="1 0 0" range="-1.658 0.174" limited="true"/>
+						<body name="robot0:gripper_link" pos="0 -0.26 -0.136" euler="0 0 0">
+							<inertial diaginertia="1.2869 1.2236 0.9868" mass="0.3294" pos="0 0 0"></inertial>
+							<geom mesh="robot0:gripper_link" name="robot0:gripper_link" pos = "0 0 0" material="gripper_mat" class="robot0:white"></geom>
+							<joint name="robot0:wrist_flex" pos="0 0 0" axis="1 0 0"/>
+							<body name="robot0:gripper">
+								<inertial diaginertia="1.2869 1.2236 0.9868" mass="0.1" pos="0 0 0"></inertial>
+								<joint name="robot0:gripper_rot" pos="0 -0.123 -0.12" axis="0 0 1"/>
+								<site name="robot0:grip" pos="0 -0.123 -0.153" rgba="1 1 1 1" size="0.02 0.02 0.02"></site>								
+								<body childclass="robot0:dobotGripper" name="robot0:l_gripper_link" pos="0 -0.1425 -0.09" euler="0 0 0">
+									<inertial diaginertia="1.2869 1.2236 0.9868" mass="0.3294" pos="0 0 0"></inertial>
+									<geom mesh="robot0:l_gripper_link" name="robot0:l_gripper_link" pos = "0 0 0" material="gripper_mat" class="robot0:white"></geom>
+									<joint name="robot0:l_gripper_joint" type="slide" axis="0 1 0" limited="true" range="-0.025 0"/>
+								</body>
+								<body childclass="robot0:dobotGripper" name="robot0:r_gripper_link" pos="0 -0.1025 -0.09" euler="0 0 0">
+									<inertial diaginertia="1.2869 1.2236 0.9868" mass="0.3294" pos="0 0 0"></inertial>
+									<geom mesh="robot0:r_gripper_link" name="robot0:r_gripper_link" pos = "0 0 0" material="gripper_mat" class="robot0:white"></geom>
+									<joint name="robot0:r_gripper_joint" type="slide" axis="0 1 0" limited="true" range = "0 0.025"/>
+								</body>
+							</body>
+						</body>
+					</body>
+				</body>
+			</body>
+		</body>
+</mujoco>

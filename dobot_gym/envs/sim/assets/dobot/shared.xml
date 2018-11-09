@@ -1,0 +1,47 @@
+<mujoco>
+    <asset>
+        <texture type="skybox" builtin="gradient" rgb1="0 0 0" rgb2="0.5 0.5 1" width="32" height="32"></texture>
+        <texture name="texture_block" file="block.png" gridsize="3 4" gridlayout=".U..LFRB.D.."></texture>
+        <texture name="arm_tex" file="arm.png" type="2d"></texture>
+        <texture name="base_tex" file="base.png" type="2d"></texture>
+        <texture name="base_blue_tex" file="base_blue.png" type="2d"></texture>
+        <texture name="gripper_tex" file="gripper.png" type="2d"></texture>
+
+        <material name="floor_mat" specular="0" shininess="0.5" reflectance="0" rgba="1 1 1 1" texture="base_blue_tex"></material>
+        <material name="block_mat" specular="0" shininess="0.5" reflectance="0" rgba="1 1 1 1" texture="texture_block"></material>
+        <material name="dobot_mat" shininess="0.03" specular="0.4" rgba ="1 1 1 0"></material>
+        <material name="arm_mat" shininess="0.03" specular="0.4" texture="arm_tex"></material>
+        <material name="gripper_mat" shininess="0.03" specular="0.4" texture="gripper_tex"></material>
+
+        <mesh file="fpart1.stl" name="robot0:rear_arm_link" scale="0.002 0.002 0.002"></mesh>
+		<mesh file="fpart2.stl" name="robot0:front_arm_link" scale="0.002 0.002 0.002"></mesh>
+		<mesh file="fpart3.stl" name="robot0:lift_link" scale="0.002 0.002 0.002"></mesh>
+		<mesh file="fpart4.stl" name="robot0:base_link" scale="0.002 0.002 0.002"></mesh>
+        <mesh file="gripper_base.stl" name="robot0:gripper_link" scale="0.002 0.002 0.002"></mesh>
+		<mesh file="leftArm.stl" name="robot0:l_gripper_link" scale="0.002 0.002 0.002"></mesh>
+		<mesh file="rightArm.stl" name="robot0:r_gripper_link" scale="0.002 0.002 0.002"></mesh>
+
+    </asset>
+
+    <equality>
+        <weld body1="robot0:mocap" body2="robot0:gripper_link" solimp="0.9 0.95 0.001" solref="0.02 1"></weld>
+    </equality>
+
+    <default>
+        <default class="robot0:dobot">
+            <geom margin="0.001" material="dobot_mat" rgba="1 1 1 1" solimp="0.99 0.99 0.01" solref="0.01 1" type="mesh" user="0" group="1"></geom>
+            <joint armature="1" damping="50" frictionloss="0" stiffness="0"></joint>
+
+            <default class="robot0:dobotGripper">
+                <geom condim="4" margin="0.001" type="box" user="0" rgba="0.356 0.361 0.376 1.0"></geom>
+                <joint armature="100" damping="1000" limited="true" solimplimit="0.99 0.999 0.01" solreflimit="0.01 1" type="slide"></joint>
+            </default>
+            <default class="robot0:white">
+                <geom rgba="0.9 0.9 0.9 1.0"></geom>
+            </default>
+            <default class="robot0:black">
+                <geom rgba="0.2 0.2 0.2 1.0"></geom>
+            </default>
+        </default>
+    </default>
+</mujoco>
