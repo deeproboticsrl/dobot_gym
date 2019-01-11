@@ -42,7 +42,7 @@ def main(port):
 
             elif cmd == 'm': ## add r later
                 x, y, z= [int(x) for x in inp[1:]]
-                dobot.movexyz(x, y, z)
+                dobot.moveangleinc(x, y, z)
             elif cmd == 'j':
                 com, isJoint, q = [int(x) for x in inp[1:]]
                 print("com received")

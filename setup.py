@@ -1,5 +1,5 @@
 from setuptools import setup
-setup(name='dobot_gym',
+setup(name='rl_dobot',
       version='0.1',
 
 )

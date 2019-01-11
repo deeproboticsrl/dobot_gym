@@ -2,9 +2,9 @@ import cv2
 import numpy as np
 
 
-# low :[  0 208  61], high:[ 74 255 153]
-# low :[  0 187  71], high:[ 80 245 255]
-class Vision:
+##low :[  0 208  61], high:[ 74 255 153]
+##low :[  0 187  71], high:[ 80 245 255]
+class Vision():
     def __init__(self, camera_port_left=1):
         self.camera_port = camera_port_left
         # self.cap1 = cv2.VideoCapture(2)
@@ -38,16 +38,17 @@ class Vision:
             return left, [cX, cY]
         return left
 
-    def show_image(self, render_time=10):
+    def show_image(self,render_time=10):
 
         # ret2,left = self.cap2.read()
         for i in range(render_time):
-            left, arr = self.get_obs_cam(centroid=True)
-            cv2.circle(left, (arr[0], arr[1]), 5, (255, 255, 255), -1)
+            left,arr=self.get_obs_cam(centroid=True)
+            cv2.circle(left, (arr[0],arr[1]), 5, (255, 255, 255), -1)
             # Display the resulting frame
-            print(arr)
+            print (arr)
             # cv2.imshow('right', right)
             cv2.imshow('left', left)
+
 
             if cv2.waitKey(1) & 0xFF == ord('q'):
                 break
@@ -62,5 +63,7 @@ if __name__ == '__main__':
     a = Vision()
     a.show_image(render_time=50000)
 
-# Y axis of the frame :Top to bottom increasing
-# X axis of the frame: left to right increasing
+
+## Y axis of the frame :Top to bottom increasing
+## X axis of the frame: left to right increasing
+# x=640 y=480 channel= 3

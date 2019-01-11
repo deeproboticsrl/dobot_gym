@@ -5,6 +5,7 @@ from sys import exit
 class DobotController():
 
     def __init__(self, port="ttyUSB0"):
+        self.DEFINED_HOME = (206, 0, 135, 0)
 
         CON_STR = {
             dType.DobotConnect.DobotConnect_NoError: "DobotConnect_NoError",
@@ -45,8 +46,9 @@ class DobotController():
 
             # lastIndex = dType.SetPTPCmd(self.api, dType.PTPMode.PTPMOVJXYZMode, 212, -83, 20, 100, isQueued=1)[0]
             #   # mode, x,y,z,r
-            lastIndex = dType.SetHOMECmd(self.api, temp=0, isQueued=1)[0]
-
+            print ("start moving")
+            lastIndex = dType.SetPTPCmd(self.api, dType.PTPMode.PTPMOVJXYZMode, *self.DEFINED_HOME, isQueued=1)[0]
+            print ("got initial command")
             dType.SetQueuedCmdStartExec(self.api)
 
             while lastIndex > dType.GetQueuedCmdCurrentIndex(self.api)[0]:
@@ -56,7 +58,7 @@ class DobotController():
             # print(lastIndex)
             dType.SetQueuedCmdStopExec(self.api)
             dType.SetQueuedCmdClear(self.api)
-
+            print ("Done moving to home")
 
     def disconnect(self):
         try:
@@ -66,7 +68,7 @@ class DobotController():
         print("Disconnected")
 
 
-    def movexyz(self, x, y, z, r=0, q=1):
+    def moveangleinc(self, x, y, z, r=0, q=1):
         if q == 1:
             lastIndex = dType.SetPTPCmd(self.api, dType.PTPMode.PTPMOVJANGLEINCMode, x, y, z, r, isQueued=1)[0]
             dType.SetQueuedCmdStartExec(self.api)
@@ -81,6 +83,20 @@ class DobotController():
         else:
             dType.SetPTPCmd(self.api, dType.PTPMode.PTPMOVJANGLEINCMode, x, y, z, r, isQueued=0)
 
+    def movexyz(self,x,y,z,r=0,q=1):
+        if q == 1:
+            lastIndex = dType.SetPTPCmd(self.api, dType.PTPMode.PTPMOVJXYZMode, *self.DEFINED_HOME, isQueued=1)[0]
+            dType.SetQueuedCmdStartExec(self.api)
+
+            while lastIndex > dType.GetQueuedCmdCurrentIndex(self.api)[0]:
+                # print(f"{dType.GetQueuedCmdCurrentIndex(self.api)} :current index")
+                # print(dType.GetQueuedCmdCurrentIndex(self.api))
+                dType.dSleep(500)
+                # Stop to Execute Command Queued
+            dType.SetQueuedCmdStopExec(self.api)
+            dType.SetQueuedCmdClear(self.api)
+        else:
+            dType.SetPTPCmd(self.api, dType.PTPMode.PTPMOVJANGLEINCMode, x, y, z, r, isQueued=0)
 
     def jog(self, cmd, isJoint=1, q=1):
         ##  Jogging Mode 0: Cartesian Coordinate System
@@ -143,3 +159,11 @@ class DobotController():
             dType.SetEndEffectorGripper(self.api, 1, grip, isQueued=0)
             time.sleep(t)
             dType.SetEndEffectorGripper(self.api, 0, grip, isQueued=0)
+
+    def get_dobot_joint(self):
+        poses = dType.GetPose(self.api)
+        return poses
+
+
+if __name__== '__main__':
+    ob = DobotController()
