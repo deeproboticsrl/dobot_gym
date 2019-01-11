@@ -1,8 +1,10 @@
-import dobot_gym.utils.DobotDllType as dType
 import time
 from sys import exit
 
-class DobotController():
+import dobot_gym.utils.DobotDllType as dType
+
+
+class DobotController:
 
     def __init__(self, port="ttyUSB0"):
         self.DEFINED_HOME = (206, 0, 135, 0)
@@ -39,7 +41,7 @@ class DobotController():
             print(2)
             dType.SetPTPJumpParams(self.api, 30, 135, isQueued=1)  # jump height , zLimit
             print(3)
-            dType.SetPTPJointParams(self.api,50,50,50,50,50,50,50,50,isQueued=1)
+            dType.SetPTPJointParams(self.api, 50, 50, 50, 50, 50, 50, 50, 50, isQueued=1)
             print(4)
             # dType.SetJOGJointParams(self.api, 10, 10, 10, 10, 10, 10, 10, 10, isQueued=1)
             # dType.SetJOGCoordinateParams(self.api, 100, 100, 100, 100, 100, 100, 100,100, isQueued=1)
@@ -115,11 +117,10 @@ class DobotController():
             dType.SetQueuedCmdStopExec(self.api)
             dType.SetQueuedCmdClear(self.api)
 
-        elif q==0:
+        elif q == 0:
             dType.SetJOGCmd(self.api, isJoint=isJoint, cmd=cmd, isQueued=0)
         else:
             print("enter q=0 or 1 for isQueued")
-
 
     def grip(self, grip=0, t=0.5, q=0):
         if q == 1:

@@ -1,5 +1,4 @@
 from dobot_gym.envs import DobotRealEnv
-import numpy as np
 
 ## 480 640 3
 class LineReachEnv(DobotRealEnv):
