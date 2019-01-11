@@ -1,8 +1,8 @@
-from dobot_gym.envs import DobotRealEnv
+from dobot_gym.envs import DobotCamRealEnv
 import numpy as np
 
 ## 480 640 3
-class LineReachEnv(DobotRealEnv):
+class LineReachEnvCam(DobotCamRealEnv):
     def __init__(self, camera_port_left=1, scale_reward=0.5):
         super().__init__(camera_port_left=camera_port_left)
         self.scale_reward = scale_reward

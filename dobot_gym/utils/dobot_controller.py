@@ -99,8 +99,8 @@ class DobotController():
             dType.SetPTPCmd(self.api, dType.PTPMode.PTPMOVJANGLEINCMode, x, y, z, r, isQueued=0)
 
     def jog(self, cmd, isJoint=1, q=1):
-        ##  Jogging Mode 0: Cartesian Coordinate System
-        ##               1 : Joint Coordinate System
+        ##  Jogging Mode isJoint 0: Cartesian Coordinate System
+        ##                       1 : Joint Coordinate System
         ## cmd :joint coordinate: joint1+/- joint2+/- joint3 +/- joint4+/-
         ##cmd: cartesian :X +/- Y +/- Z +/- R+/- L+/-
         if q == 1:
