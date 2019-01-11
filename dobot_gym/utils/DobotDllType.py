@@ -1,6 +1,7 @@
-from ctypes import *
-import time, platform
 import os
+import platform
+import time
+from ctypes import *
 
 
 def enum(**enums):
@@ -508,7 +509,7 @@ def load():
             print(path)
             return cdll.LoadLibrary(os.path.abspath(path))
         except:
-            return cdll.LoadLibrary("libDobotDll.so.1.0.0")
+            return cdll.LoadLibrary("./libDobotDll.so.1.0.0")
 
 
 def dSleep(ms):

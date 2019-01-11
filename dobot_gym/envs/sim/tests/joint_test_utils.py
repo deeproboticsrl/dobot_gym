@@ -57,21 +57,14 @@ def qvel_incr(i, viewer, sim, num_steps, initial_state, speed, step_flag):
 
 def dobot_env_setup(sim):
     initial_qpos = {
-        'robot0:slide0': 0.8,
-        'robot0:slide1': 1.2,
-        'robot0:slide2': -0.04,
+        'robot0:slide0': 0.0,
+        'robot0:slide1': 0.0,
+        'robot0:slide2': 0.0,
     }
-    gripper_extra_height = 0.2
     for name, value in initial_qpos.items():
         sim.data.set_joint_qpos(name, value)
     utils.reset_mocap_welds(sim)
     sim.forward()
 
-    # gripper_target = np.array([0.8, 1.0, 0.37 + gripper_extra_height]) + sim.data.get_site_xpos('robot0:grip')
-    # gripper_rotation = np.array([1., 0., 1., 0.])
-    # sim.data.set_mocap_pos('robot0:mocap', gripper_target)
-    # sim.data.set_mocap_quat('robot0:mocap', gripper_rotation)
     for _ in range(10):
         sim.step()
-
-    initial_gripper_xpos = sim.data.get_site_xpos('robot0:grip').copy()
