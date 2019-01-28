@@ -16,11 +16,14 @@ class DobotRealEnv(gym.Env, utils.EzPickle):
 
         self.dobot = DobotController(port=def_port)
         self.observation_space = None
+        # -1 0 1 actions
         self.action_space = MultiDiscrete([3, 3, 3])
         self.timestep = 0
 
-    def compute_reward(self):
-        pass
+    def compute_reward(self,poses):
+        x,y,z =poses[:3]
+        reward = -10*y-10*z+x
+        return reward
 
     def step(self, action):
         real_action = action - 1
@@ -30,7 +33,7 @@ class DobotRealEnv(gym.Env, utils.EzPickle):
         reward = self.compute_reward(poses)
         done = False
         info = None
-        if self.timestep > 100:
+        if self.timestep > 400 or poses[0] > 331 or poses[0]<110:
             done = True
         self.timestep += 1
         return poses, reward, done, info

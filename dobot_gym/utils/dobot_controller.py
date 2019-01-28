@@ -65,9 +65,10 @@ class DobotController:
     def disconnect(self):
         try:
             dType.DisconnectDobot(self.api)
+            print("Disconnected")
         except:
             pass
-        print("Disconnected")
+
 
 
     def moveangleinc(self, x, y, z, r=0, q=1):
@@ -162,6 +163,7 @@ class DobotController:
             dType.SetEndEffectorGripper(self.api, 0, grip, isQueued=0)
 
     def get_dobot_joint(self):
+        # return float x, float y,float z, float r, float joint1,...joint 4
         poses = dType.GetPose(self.api)
         return poses
 
