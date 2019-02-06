@@ -8,7 +8,7 @@ class DobotController:
 
     def __init__(self, port="ttyUSB0"):
         self.DEFINED_HOME = (206, 0, 135, 0)
-
+        # self.DEFINED_HOME = (190,58,146,17)
         CON_STR = {
             dType.DobotConnect.DobotConnect_NoError: "DobotConnect_NoError",
             dType.DobotConnect.DobotConnect_NotFound: "DobotConnect_NotFound",
@@ -52,8 +52,9 @@ class DobotController:
             lastIndex = dType.SetPTPCmd(self.api, dType.PTPMode.PTPMOVJXYZMode, *self.DEFINED_HOME, isQueued=1)[0]
             print ("got initial command")
             dType.SetQueuedCmdStartExec(self.api)
-
+            print("step1")
             while lastIndex > dType.GetQueuedCmdCurrentIndex(self.api)[0]:
+                print("step2")
                 dType.dSleep(500)
                 # print(dType.GetQueuedCmdCurrentIndex(self.api))
             # print(lastIndex)
