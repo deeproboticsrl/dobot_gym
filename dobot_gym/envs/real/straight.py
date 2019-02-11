@@ -19,7 +19,7 @@ class DobotStraightEnv(gym.Env, gym.utils.EzPickle):
         # poses =[pose.x, pose.y, pose.z, pose.rHead, pose.joint1Angle,
         # pose.joint2Angle, pose.joint3Angle, pose.joint4Angle(gripper)]
         # ignore rhead and joint4angle
-        self.poses_low = np.array([125, -165, -10, -50, 5, -5])
+        self.poses_low = np.array([125, -165, -10, -50, -5, -5])
         self.poses_high = np.array([330, 190, 160, 55, 70, 75])
         self.observation_space = Box(low=self.poses_low, high=self.poses_high)
 
@@ -45,17 +45,18 @@ class DobotStraightEnv(gym.Env, gym.utils.EzPickle):
         # TODO done condition using dobot limits
         done = False
         info = None
-        if self.timestep > self.max_timesteps or self.check_pose_limit(poses):
+        if self.timestep > self.max_timesteps or not self.check_pose_limit(poses):
             done = True
         self.timestep += 1
         return poses, reward, done, info
 
     def check_pose_limit(self, poses):
-        # print("Poses ", poses)
+        print("Poses ", poses,poses[4]<self.poses_low[3])
         if poses[0] > self.poses_high[0] or poses[0] < self.poses_low[0] or poses[1] < self.poses_low[1] or poses[1] > \
                 self.poses_high[1] or poses[2] > self.poses_high[2] or poses[2] < self.poses_low[2] or poses[4] > \
                 self.poses_high[3] or poses[4] < self.poses_low[3] or poses[5] > self.poses_high[4] or poses[5] < \
                 self.poses_low[4] or poses[6] > self.poses_high[5] or poses[6] < self.poses_low[5]:
+            # limit break
             return False
         else:
             return True
