@@ -33,6 +33,8 @@ class DobotRealEnv(gym.Env, utils.EzPickle):
         self.dobot.moveangleinc(*real_action, r=0, q=1)
         poses = self.dobot.get_dobot_joint()
 
+        #[pose.x, pose.y, pose.z, pose.rHead, pose.joint1Angle, pose.joint2Angle, pose.joint3Angle, pose.joint4Angle]
+
         reward = self.compute_reward(poses)
         # TODO done condition using dobot limits
         done = False
