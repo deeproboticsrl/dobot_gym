@@ -1,1 +1,1 @@
-from dobot_gym.envs.real.straight import DobotRealEnv
+from dobot_gym.envs.real.straight import DobotStraightEnv

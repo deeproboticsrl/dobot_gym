@@ -11,6 +11,7 @@ from gym.spaces import MultiDiscrete
 class DobotRealEnv(gym.Env, utils.EzPickle):
     def __init__(self):
         super().__init__()
+        # Find the port on which dobot is connected
         available_ports = glob('/dev/tty*USB*')
         if len(available_ports) == 0:
             print('no port found for Dobot Magician')

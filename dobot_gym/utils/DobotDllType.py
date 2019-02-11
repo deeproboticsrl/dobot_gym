@@ -504,9 +504,9 @@ def load():
         return CDLL("libDobotDll.dylib", RTLD_GLOBAL)
     else:
         try:
-            path = dobot_rl.__file__
-            path = os.path.split(path)[0] + "/utils/libDobotDll.so.1.0.0"
-            print(path)
+            path = __file__
+            path = os.path.split(path)[0] + "/libDobotDll.so.1.0.0"
+            print("libDobotDll.so.1.0.0 path -- ", path)
             return cdll.LoadLibrary(os.path.abspath(path))
         except:
             return cdll.LoadLibrary("libDobotDll.so.1.0.0")
@@ -729,7 +729,7 @@ def GetPose(api):
             continue
         break
     output('GetPose: %.4f %.4f %.4f %.4f %.4f %.4f %.4f %.4f' % (
-    pose.x, pose.y, pose.z, pose.rHead, pose.joint1Angle, pose.joint2Angle, pose.joint3Angle, pose.joint4Angle))
+        pose.x, pose.y, pose.z, pose.rHead, pose.joint1Angle, pose.joint2Angle, pose.joint3Angle, pose.joint4Angle))
     return [pose.x, pose.y, pose.z, pose.rHead, pose.joint1Angle, pose.joint2Angle, pose.joint3Angle, pose.joint4Angle]
 
 
@@ -788,8 +788,8 @@ def GetUserParams(api):
             continue
         break
     output('GetUserParams: %.4f %.4f %.4f %.4f %.4f %.4f %.4f %.4f' % (
-    param.params1, param.params2, param.params3, param.params4, param.params5, param.params6, param.params7,
-    param.params8))
+        param.params1, param.params2, param.params3, param.params4, param.params5, param.params6, param.params7,
+        param.params8))
     return [param.params1, param.params2, param.params3, param.params4, param.params5, param.params6, param.params7,
             param.params8]
 
@@ -1035,8 +1035,8 @@ def GetJOGJointParams(api):
             continue
         break
     output('GetJOGJointParams: %.4f %.4f %.4f %.4f %.4f %.4f %.4f %.4f' % (
-    param.joint1Velocity, param.joint1Acceleration, param.joint2Velocity, param.joint2Acceleration,
-    param.joint3Velocity, param.joint3Acceleration, param.joint4Velocity, param.joint4Acceleration))
+        param.joint1Velocity, param.joint1Acceleration, param.joint2Velocity, param.joint2Acceleration,
+        param.joint3Velocity, param.joint3Acceleration, param.joint4Velocity, param.joint4Acceleration))
     return [param.joint1Velocity, param.joint1Acceleration, param.joint2Velocity, param.joint2Acceleration,
             param.joint3Velocity, param.joint3Acceleration, param.joint4Velocity, param.joint4Acceleration]
 
@@ -1071,8 +1071,8 @@ def GetJOGCoordinateParams(api):
             continue
         break
     output('GetJOGCoordinateParams: %.4f %.4f %.4f %.4f %.4f %.4f %.4f %.4f' % (
-    param.xVelocity, param.xAcceleration, param.yVelocity, param.yVelocity, param.zVelocity, param.zAcceleration,
-    param.rVelocity, param.rAcceleration))
+        param.xVelocity, param.xAcceleration, param.yVelocity, param.yVelocity, param.zVelocity, param.zAcceleration,
+        param.rVelocity, param.rAcceleration))
     return [param.xVelocity, param.xAcceleration, param.yVelocity, param.yVelocity, param.zVelocity,
             param.zAcceleration, param.rVelocity, param.rAcceleration]
 
@@ -1125,7 +1125,7 @@ def GetJOGCommonParams(api):
             continue
         break
     output('GetJOGCommonParams: velocityRatio=%.4f accelerationRatio=%.4f' % (
-    param.velocityRatio, param.accelerationRatio))
+        param.velocityRatio, param.accelerationRatio))
     return [param.velocityRatio, param.accelerationRatio]
 
 
@@ -1173,8 +1173,8 @@ def GetPTPJointParams(api):
             continue
         break
     output('GetPTPJointParams: %.4f %.4f %.4f %.4f %.4f %.4f %.4f %.4f' % (
-    pbParam.joint1Velocity, pbParam.joint1Acceleration, pbParam.joint2Velocity, pbParam.joint2Acceleration,
-    pbParam.joint3Velocity, pbParam.joint3Acceleration, pbParam.joint4Velocity, pbParam.joint4Acceleration))
+        pbParam.joint1Velocity, pbParam.joint1Acceleration, pbParam.joint2Velocity, pbParam.joint2Acceleration,
+        pbParam.joint3Velocity, pbParam.joint3Acceleration, pbParam.joint4Velocity, pbParam.joint4Acceleration))
     return [pbParam.joint1Velocity, pbParam.joint1Acceleration, pbParam.joint2Velocity, pbParam.joint2Acceleration,
             pbParam.joint3Velocity, pbParam.joint3Acceleration, pbParam.joint4Velocity, pbParam.joint4Acceleration]
 
@@ -1204,7 +1204,7 @@ def GetPTPCoordinateParams(api):
             continue
         break
     output('GetPTPCoordinateParams: xyzVelocity=%.4f rVelocity=%.4f xyzAcceleration=%.4f rAcceleration=%.4f' % (
-    pbParam.xyzVelocity, pbParam.rVelocity, pbParam.xyzAcceleration, pbParam.rAcceleration))
+        pbParam.xyzVelocity, pbParam.rVelocity, pbParam.xyzAcceleration, pbParam.rAcceleration))
     return [pbParam.xyzVelocity, pbParam.rVelocity, pbParam.xyzAcceleration, pbParam.rAcceleration]
 
 
@@ -1282,7 +1282,7 @@ def GetPTPCommonParams(api):
             continue
         break
     output('GetPTPCommonParams: velocityRatio=%.4f accelerationRatio=%.4f' % (
-    pbParam.velocityRatio, pbParam.accelerationRatio))
+        pbParam.velocityRatio, pbParam.accelerationRatio))
     return [pbParam.velocityRatio, pbParam.accelerationRatio]
 
 
@@ -1408,7 +1408,7 @@ def GetARCParams(api):
             continue
         break
     output('GetARCParams: xyzVelocity=%.4f,rVelocity=%.4f,xyzAcceleration=%.4f,rAcceleration=%.4f' % (
-    parm.xyzVelocity, parm.rVelocity, parm.xyzAcceleration, parm.rAcceleration))
+        parm.xyzVelocity, parm.rVelocity, parm.xyzAcceleration, parm.rAcceleration))
     return [parm.xyzVelocity, parm.rVelocity, parm.xyzAcceleration, parm.rAcceleration]
 
 
@@ -1620,7 +1620,7 @@ def GetAngleSensorStaticError(api):
             continue
         break
     output('GetAngleSensorStaticError: rearArmAngleError=%.4f,frontArmAngleError=%.4f' % (
-    rearArmAngleError.value, frontArmAngleError.value))
+        rearArmAngleError.value, frontArmAngleError.value))
     return [rearArmAngleError.value, frontArmAngleError.value]
 
 
@@ -1645,7 +1645,7 @@ def GetAngleSensorCoef(api):
             continue
         break
     output('GetAngleSensorStaticCoef: rearArmAngleCoef=%.4f,frontArmAngleCoef=%.4f' % (
-    rearArmAngleCoef.value, frontArmAngleCoef.value))
+        rearArmAngleCoef.value, frontArmAngleCoef.value))
     return [rearArmAngleCoef.value, frontArmAngleCoef.value]
 
 
@@ -1783,7 +1783,7 @@ def GetWIFIIPAddress(api):
             continue
         break
     output('GetWIFIIPAddress: IPAddress=%d.%d.%d.%d' % (
-    wifiIPAddress.addr1, wifiIPAddress.addr2, wifiIPAddress.addr3, wifiIPAddress.addr4))
+        wifiIPAddress.addr1, wifiIPAddress.addr2, wifiIPAddress.addr3, wifiIPAddress.addr4))
     return [c_uint8(wifiIPAddress.dhcp).value, c_uint8(wifiIPAddress.addr1).value, c_uint8(wifiIPAddress.addr2).value,
             c_uint8(wifiIPAddress.addr3).value, c_uint8(wifiIPAddress.addr4).value]
 
@@ -1811,7 +1811,7 @@ def GetWIFINetmask(api):
             continue
         break
     output('GetWIFINetmask: Netmask=%d.%d.%d.%d' % (
-    wifiNetmask.addr1, wifiNetmask.addr2, wifiNetmask.addr3, wifiNetmask.addr4))
+        wifiNetmask.addr1, wifiNetmask.addr2, wifiNetmask.addr3, wifiNetmask.addr4))
     return [c_uint8(wifiNetmask.addr1).value, c_uint8(wifiNetmask.addr2).value, c_uint8(wifiNetmask.addr3).value,
             c_uint8(wifiNetmask.addr4).value]
 
@@ -1839,7 +1839,7 @@ def GetWIFIGateway(api):
             continue
         break
     output('GetWIFIGateway: wifiGateway=%d.%d.%d.%d' % (
-    wifiGateway.addr1, wifiGateway.addr2, wifiGateway.addr3, wifiGateway.addr4))
+        wifiGateway.addr1, wifiGateway.addr2, wifiGateway.addr3, wifiGateway.addr4))
     return [c_uint8(wifiGateway.addr1).value, c_uint8(wifiGateway.addr2).value, c_uint8(wifiGateway.addr3).value,
             c_uint8(wifiGateway.addr4).value]
 
