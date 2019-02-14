@@ -168,6 +168,15 @@ class DobotController:
         poses = dType.GetPose(self.api)
         return poses
 
+    def continuousCMD(self,x,y,z):
+        lastIndex = dType.SetCPCmd(self.api,cpMode=0,x=x,y=y,z=z,isQueued=1,velocity=100)[0]
+        dType.SetQueuedCmdStartExec(self.api)
+        # print (lastIndex)
+        while lastIndex > dType.GetQueuedCmdCurrentIndex(self.api)[0]:
+            dType.dSleep(500)
+            # Stop to Execute Command Queued
+        dType.SetQueuedCmdStopExec(self.api)
+        dType.SetQueuedCmdClear(self.api)
 
 if __name__== '__main__':
     ob = DobotController()
